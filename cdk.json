@@ -1,0 +1,16 @@
+{
+  "app": "npx ts-node ./infrastracture/lambda/lib/LambdaInfrastracture.ts",
+  "context": {
+    "aws-cdk:enableDiffNoFail": "true",
+    "@aws-cdk/core:stackRelativeExports": "true",
+    "stack_tags": {
+      "Application": "LambdaInfrastracture"
+    },
+    "aws_env_details": {
+      "dev": {
+        "account": "123456789",
+        "region": "eu-west-2"
+      }
+    }
+  }
+}
