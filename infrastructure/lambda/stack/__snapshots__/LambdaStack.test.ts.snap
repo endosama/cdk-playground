@@ -1,0 +1,135 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LambdaStack should match the snapshot 1`] = `
+Object {
+  "Parameters": Object {
+    "AssetParametersebc85ccfa99c37e95c2081f1bae88d02fc47fa5efa3a88f41ccfad0a23880bbcArtifactHashDB0503D2": Object {
+      "Description": "Artifact hash for asset \\"ebc85ccfa99c37e95c2081f1bae88d02fc47fa5efa3a88f41ccfad0a23880bbc\\"",
+      "Type": "String",
+    },
+    "AssetParametersebc85ccfa99c37e95c2081f1bae88d02fc47fa5efa3a88f41ccfad0a23880bbcS3BucketF62D5450": Object {
+      "Description": "S3 bucket for asset \\"ebc85ccfa99c37e95c2081f1bae88d02fc47fa5efa3a88f41ccfad0a23880bbc\\"",
+      "Type": "String",
+    },
+    "AssetParametersebc85ccfa99c37e95c2081f1bae88d02fc47fa5efa3a88f41ccfad0a23880bbcS3VersionKey318B5161": Object {
+      "Description": "S3 key for asset version \\"ebc85ccfa99c37e95c2081f1bae88d02fc47fa5efa3a88f41ccfad0a23880bbc\\"",
+      "Type": "String",
+    },
+  },
+  "Resources": Object {
+    "MyLambdaCCE802FB": Object {
+      "DependsOn": Array [
+        "MyLambdaServiceRoleDefaultPolicy5BBC6F68",
+        "MyLambdaServiceRole4539ECB6",
+      ],
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Ref": "AssetParametersebc85ccfa99c37e95c2081f1bae88d02fc47fa5efa3a88f41ccfad0a23880bbcS3BucketF62D5450",
+          },
+          "S3Key": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                Object {
+                  "Fn::Select": Array [
+                    0,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParametersebc85ccfa99c37e95c2081f1bae88d02fc47fa5efa3a88f41ccfad0a23880bbcS3VersionKey318B5161",
+                        },
+                      ],
+                    },
+                  ],
+                },
+                Object {
+                  "Fn::Select": Array [
+                    1,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParametersebc85ccfa99c37e95c2081f1bae88d02fc47fa5efa3a88f41ccfad0a23880bbcS3VersionKey318B5161",
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            ],
+          },
+        },
+        "Handler": "BaseLambda.handler",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "MyLambdaServiceRole4539ECB6",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs12.x",
+        "TracingConfig": Object {
+          "Mode": "Active",
+        },
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "MyLambdaServiceRole4539ECB6": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "MyLambdaServiceRoleDefaultPolicy5BBC6F68": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "xray:PutTraceSegments",
+                "xray:PutTelemetryRecords",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "MyLambdaServiceRoleDefaultPolicy5BBC6F68",
+        "Roles": Array [
+          Object {
+            "Ref": "MyLambdaServiceRole4539ECB6",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+  },
+}
+`;
